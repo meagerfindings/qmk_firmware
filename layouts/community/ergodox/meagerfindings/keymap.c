@@ -3,7 +3,6 @@
 
 enum {
   BASE = 0,
-  OLD_BASE,
   SYMBL,
   MEDIA,
   MKDWN,
@@ -15,16 +14,10 @@ enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
   VRSN,
-  MD_LINK,
   XKCD,
   DBLE_ZER0,
-  L_ID_0,
-  L_ID_1,
-  L_ID_2,
   PAST_PS,
   TODO,
-  RUBYMINE,
-  ZENDESK,
   DBLE_ASTR,
   TRPLE_GRAVE,
   H_ONE,
@@ -73,10 +66,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * |--------+------+------+------+------+------|   (  |           |   )  |------+------+------+------+------+--------|
   * |Shft Tab|Z/Ctrl|X/Alt |   C  |   V  |   B  | [  { |           | ]  } |   N  |   M  |   ,  | ./Alt|//Ctrl|CMD+SHFT|
   * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-  *   |  `   |Zendsk|RBMINE|CMD+S | ToDo |                                       |   _  |      |  00  |  00  |OLD BASE|
+  *   |  `   |      |      |CMD+S | ToDo |                                       |   _  |      |  00  |  00  |      |
   *   `----------------------------------'                                       `----------------------------------'
   *                                        ,-------------.       ,--------------.
-  *                                        | Esc  | Home |       |Layer?| Esc   |
+  *                                        | Esc  | Home |       |      | Esc   |
   *                                 ,------|------|------|       |------+-------+------.
   *                                 |      |      | End  |       | Undo |       |      |
   *                                 |Shift |Backsp|------|       |------| Return|Space/|
@@ -95,69 +88,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,             KC_Q,     KC_W,        KC_E,        KC_R,       KC_T,     M_GREATER,
     OSM(MOD_HYPR),      KC_A,  S_CMD_S,    ALT_T(KC_D), LT(MKDWN,KC_F), KC_G,
     LSFT(KC_TAB), CTL_T(KC_Z), ALT_T(KC_X),    KC_C,        KC_V,       KC_B,     TD(CT_LBP),
-               KC_GRAVE, ZENDESK, RUBYMINE,   LGUI(KC_S),   TODO,
+               KC_GRAVE, _______,  _______,   LGUI(KC_S),   TODO,
                                                           KC_ESCAPE,    KC_HOME,
                                                                         KC_END,
                                   OSM(MOD_LSFT), LT(NUM,KC_BSPACE),     LT(MKDWN,KC_DELETE),
 
     //right hand
     KC_F7,           KC_F8,     KC_F9,    KC_F10,   KC_F11,        KC_F12,           KC_MINUS,
-    MD_LINK,          KC_Y,     KC_U,     KC_I,     KC_O,          KC_P,             KC_BSLASH,
+    _______,          KC_Y,     KC_U,     KC_I,     KC_O,          KC_P,             KC_BSLASH,
                       KC_H,     KC_J, ALT_T(KC_K),  LGUI_T(KC_L),  LT(MEDIA,KC_SCOLON),  ALL_T(KC_QUOTE),
     TD(CT_RBP),       KC_N,     KC_M,     KC_COMMA, ALT_T(KC_DOT), CTL_T(KC_SLASH),  SCMD_T(_______),
-                LSFT(KC_MINUS), _______,  DBLE_ZER0, DBLE_ZER0,   TO(OLD_BASE),
-    L_ID_0,         KC_ESCAPE,
+                LSFT(KC_MINUS), _______,  DBLE_ZER0, DBLE_ZER0,   _______,
+    _______,       KC_ESCAPE,
     LGUI(KC_Z),
     LT(MEDIA,KC_LCTL),  LT(SYMBL,KC_ENTER),  LT(ARROWS,KC_SPACE)),
 
-    /* Keymap 1: OLD Base layer
-    * ,--------------------------------------------------.           ,--------------------------------------------------.
-    * |   =    |   1  |   2  |   3  |   4  |   5  | []() |           |Snagit|   6  |   7  |   8  |   9  |   0  |   -    |
-    * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-    * | Tab    |   Q  |   W  |   E  |   R  |   T  | "> " |           | []() |   Y  |   U  |   I  |   O  |   P  |   \    |
-    * |--------+------+------+------+------+------|      |           | SCRN |------+------+------+------+------+--------|
-    * | Hyper  |   A  |S /CMD|   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |L /CMD| ; /L2| '/Hyper|
-    * |--------+------+------+------+------+------|   (  |           |   )  |------+------+------+------+------+--------|
-    * |Shft Tab|Z/Ctrl|X/Alt |   C  |   V  |   B  | [  { |           | ]  } |   N  |   M  |   ,  | ./Alt|//Ctrl|CMD+SHFT|
-    * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-    *   |  `   |Zendsk|RBMINE|CMD+S | ToDo |                                       |   _  |      |  00  |  00  |ToBase|
-    *   `----------------------------------'                                       `----------------------------------'
-    *                                        ,-------------.       ,--------------.
-    *                                        | Esc  | Home |       |Layer?| Esc   |
-    *                                 ,------|------|------|       |------+-------+------.
-    *                                 |      |      | End  |       | Undo |       |      |
-    *                                 |Shift |Backsp|------|       |------| Return|Space/|
-    *                                 | OSM  | /L5  | DEL  |       | Ctrl | /LT1  |Arrows|
-    *                                 `--------------------'       `---------------------'
-    *
-    *Copy/Cut key copies on tap, cut's on two taps.
-    *
-    *One tap on Snagit key = is Ctrl + Shift + C which is Snagit's selector.
-    *Two taps on Snagit key = Cmd + Shift + Opt + 4 (OS X cropping screenshot that is copied to the clipboard only.)
-    */
 
-    [OLD_BASE] = LAYOUT_ergodox(
-      //left hand
-      KC_EQUAL,           KC_1,     KC_2,    KC_3,        KC_4,     KC_5,     M_LINK,
-      KC_TAB,             KC_Q,     KC_W,    KC_E,        KC_R,     KC_T,     M_GREATER,
-      OSM(MOD_HYPR),      KC_A,  S_CMD_S, D_CMD_OPT, LT(MKDWN,KC_F),KC_G,
-      LSFT(KC_TAB), CTL_T(KC_Z), ALT_T(KC_X),  KC_C,      KC_V,     KC_B,     TD(CT_LBP),
-                 KC_GRAVE, ZENDESK, RUBYMINE, LGUI(KC_S), TODO,
-                                                          KC_ESCAPE, KC_HOME,
-                                                                     KC_END,
-                                    OSM(MOD_LSFT), LT(NUM,KC_BSPACE),  LT(MKDWN,KC_DELETE),
-
-      //right hand
-      TD(TD_SNAGIT),    KC_6,     KC_7,     KC_8,     KC_9,          KC_0,             KC_MINUS,
-      MD_LINK,          KC_Y,     KC_U,     KC_I,     KC_O,          KC_P,             KC_BSLASH,
-                        KC_H,     KC_J,     KC_K,     LGUI_T(KC_L),  LT(MEDIA,KC_SCOLON),  ALL_T(KC_QUOTE),
-      TD(CT_RBP),       KC_N,     KC_M,     KC_COMMA, ALT_T(KC_DOT), CTL_T(KC_SLASH),  SCMD_T(_______),
-                  LSFT(KC_MINUS), _______,  DBLE_ZER0, DBLE_ZER0,   TO(BASE),
-      L_ID_0,         KC_ESCAPE,
-      LGUI(KC_Z),
-      LT(MEDIA,KC_LCTL),  LT(SYMBL,KC_ENTER),  LT(ARROWS,KC_SPACE)),
-
-    /* Keymap 2: Symbol
+    /* Keymap 1: Symbol
      * ,--------------------------------------------------.           ,--------------------------------------------------.
      * |        |  1   |   2  |   3  |   4  |   5  | []() |           |Snagit|   6  |  7   |  8   |   9  |   0  |   -    |
      * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
@@ -170,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *   |      |      |      |      |      |                                       |      |      |      |      |      |
      *   `----------------------------------'                                       `----------------------------------'
      *                                        ,-------------.       ,-------------.
-     *                                        |      |      |       |Layer?|      |
+     *                                        |      |      |       |      |      |
      *                                 ,------|------|------|       |------+------+------.
      *                                 |      |      |      |       |      |      |      |
      *                                 |      |      |------|       |------|      |      |
@@ -195,11 +142,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   KC_MINUS,    KC_LBRC,      KC_RBRC,      KC_LPRN,     KC_RPRN,    _______,
     _______,      _______,     _______,      _______,      _______,     _______,    _______,
                   _______,     _______,      _______,      _______,     _______,
-    L_ID_1,       _______,
+    _______,      _______,
     _______,
     _______,      _______,     _______),
 
-  /* Keymap 3: Media and mouse keys
+  /* Keymap 2: Media and mouse keys
    * ,--------------------------------------------------.           ,--------------------------------------------------.
    * |        |      |      |      |      |      |      |           | XKCD |      |      |      |      |      |  F15   |
    * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
@@ -212,7 +159,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *   |      |      |      |      |      |                                       | Mute |      |      |      |      |
    *   `----------------------------------'                                       `----------------------------------'
    *                                        ,-------------.       ,-------------.
-   *                                        |      |      |       |LAYER?|      |
+   *                                        |      |      |       |      |      |
    *                                 ,------|------|------|       |------+------+------.
    *                                 | Left |Right |      |       |      |Copy/ | paste|
    *                                 | Click|Click |------|       |------| cut  |/paste|
@@ -238,11 +185,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 _______, KC_AUDIO_MUTE,     KC_AUDIO_VOL_DOWN,       KC_AUDIO_VOL_UP,    _______,    KC_MEDIA_PLAY_PAUSE,
    _______,     _______,       _______,   KC_MEDIA_PREV_TRACK,   KC_MEDIA_NEXT_TRACK,    _______,    XXXXXXX,
                                _______,         _______,         _______,    _______,    _______,
-    L_ID_2,     _______,
+    _______,    _______,
     _______,
     _______,    TD(TD_COPY_CUT),    PAST_PS),
 
-  /* Keymap 4: Markdown Symbols
+  /* Keymap 3: Markdown Symbols
   * ,--------------------------------------------------.           ,--------------------------------------------------.
   * |        |      |      |      |      |      |      |           |SCRNCL|      |      |      |      |      |        |
   * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
@@ -255,7 +202,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *   |      |      |      |      |      |                                       |      |      |      |      |      |
   *   `----------------------------------'                                       `----------------------------------'
   *                                        ,-------------.       ,-------------.
-  *                                        |      |      |       |Layer?|      |
+  *                                        |      |      |       |      |      |
   *                                 ,------|------|------|       |------+------+------.
   *                                 |      |      |      |       |      |      |      |
   *                                 |      |      |------|       |------|      |      |
@@ -285,7 +232,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    _______,
    _______,          _______,       _______),
 
-   /* Keymap 5: Arrows
+   /* Keymap 4: Arrows
     *
     * ,--------------------------------------------------.           ,--------------------------------------------------.
     * |  RESET |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
@@ -331,7 +278,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,
     _______,     _______,       _______),
 
-    /* Keymap 6: Numpad
+    /* Keymap 5: Numpad
     * ,--------------------------------------------------.           ,--------------------------------------------------.
     * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
     * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
@@ -356,7 +303,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       //left hand
       _______,        _______,     _______,     _______,        _______,        _______,    _______,
       _______,        _______,     _______,     _______,        _______,        _______,    _______,
-      _______,        _______,     _______,   TD(TD_COPY_CUT),  PAST_PS,        _______,
+      OSM(MOD_HYPR),  _______,     _______,   TD(TD_COPY_CUT),  PAST_PS,        _______,
       _______,        _______,     _______,     _______,        _______,        _______,    _______,
                       _______,     _______,     _______,        _______,        _______,
                                                                                             _______,    _______,
@@ -366,7 +313,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       //right hand
       _______,      _______,      _______,       _______,     _______,     _______,        _______,
       _______,     KC_EQUAL,      KC_7,          KC_8,        KC_9,        KC_ASTR,        _______,
-                    KC_PLUS,      KC_4,          KC_5,        KC_6,        KC_PLUS,        _______,
+                    KC_PLUS,      KC_4,          KC_5,        KC_6,        KC_PLUS,        MOD_HYPR,
       _______,     KC_MINUS,      KC_1,          KC_2,        KC_3,        KC_KP_SLASH,    _______,
                     KC_KP_0,      KC_DOT,        DBLE_ZER0,   DBLE_ZER0,   KC_KP_ENTER,
       _______,      _______,
@@ -389,20 +336,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
       }
       return false;
-      break;
-
-    case MD_LINK:
-      if (record->event.pressed){
-        key_timer = timer_read();
-      } else {
-        if (timer_elapsed(key_timer) > 150) {
-          SEND_STRING ("([Video](");
-        } else {
-          SEND_STRING ("([Screenshot](");
-        }
-        SEND_STRING(SS_LGUI("v"));
-        SEND_STRING("))");
-      }
       break;
 
     case XKCD:
@@ -432,27 +365,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
-    case L_ID_0:
-      if (record->event.pressed) {
-        SEND_STRING (SS_LGUI(" "));
-        SEND_STRING ("Layer 0: Base");
-      }
-      break;
-
-    case L_ID_1:
-      if (record->event.pressed) {
-        SEND_STRING (SS_LGUI(" "));
-        SEND_STRING ("Layer 1: Symbols");
-      }
-      break;
-
-    case L_ID_2:
-      if (record->event.pressed) {
-        SEND_STRING (SS_LGUI(" "));
-        SEND_STRING ("Layer 2: Media & Mousekeys");
-      }
-      break;
-
     case PAST_PS:
       if (record->event.pressed) {
         key_timer = timer_read();
@@ -476,22 +388,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           SEND_STRING (SS_LGUI(SS_LCTRL("a"))); //macro to open Todoist new task dialog
         }
-      }
-      break;
-
-    case RUBYMINE:
-      if (record->event.pressed){
-        SEND_STRING (SS_LGUI(" "));
-        SEND_STRING ("RUBYMINE");
-        SEND_STRING (SS_TAP(X_ENTER));
-      }
-      break;
-
-    case ZENDESK:
-      if (record->event.pressed){
-        SEND_STRING (SS_LGUI(" "));
-        SEND_STRING ("||ZEN");
-        SEND_STRING (SS_TAP(X_ENTER));
       }
       break;
 
